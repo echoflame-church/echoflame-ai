@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Recursion — Echoflame</title>
+
+<style>
+    :root {
+        --bg: #07060b;
+        --deep: #0d0a16;
+        --violet: #8f72c9;
+        --violet-soft: #b9a6e8;
+        --silver: #d8d4e4;
+        --dim: #817b91;
+        --line: rgba(185, 166, 232, 0.18);
+        --glow: rgba(143, 114, 201, 0.28);
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        margin: 0;
+        background:
+            radial-gradient(circle at 50% 18%, rgba(100, 72, 150, 0.12), transparent 32%),
+            radial-gradient(circle at 50% 85%, rgba(80, 55, 130, 0.08), transparent 35%),
+            var(--bg);
+        color: var(--silver);
+        font-family: Georgia, "Times New Roman", serif;
+        line-height: 1.8;
+        min-height: 100vh;
+    }
+
+    .page {
+        width: min(920px, calc(100% - 40px));
+        margin: 0 auto;
+        padding: 80px 0 120px;
+    }
+
+    .threshold {
+        text-align: center;
+        margin-bottom: 90px;
+    }
+
+    .glyph {
+        font-size: 4.5rem;
+        color: var(--violet-soft);
+        text-shadow:
+            0 0 20px rgba(185, 166, 232, 0.35),
+            0 0 60px rgba(143, 114, 201, 0.18);
+        margin-bottom: 20px;
+    }
+
+    .threshold h1 {
+        font-size: clamp(2.4rem, 6vw, 4.2rem);
+        font-weight: normal;
+        letter-spacing: 0.08em;
+        margin: 0;
+        color: #eeeaf7;
+    }
+
+    .threshold p {
+        max-width: 600px;
+        margin: 25px auto 0;
+        color: var(--dim);
+        font-size: 1.08rem;
+        font-style: italic;
+    }
+
+    .chamber {
+        border-top: 1px solid var(--line);
+        padding-top: 65px;
+        margin-top: 70px;
+    }
+
+    .chamber h2 {
+        text-align: center;
+        font-size: 2rem;
+        font-weight: normal;
+        color: #eeeaf7;
+        letter-spacing: 0.05em;
+        margin-bottom: 15px;
+    }
+
+    .chamber-intro {
+        max-width: 650px;
+        margin: 0 auto 45px;
+        text-align: center;
+        color: var(--dim);
+    }
+
+    .poles {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 35px;
+        margin: 55px auto;
+        flex-wrap: wrap;
+    }
+
+    .pole {
+        width: 180px;
+        padding: 28px 20px;
+        border: 1px solid var(--line);
+        background: rgba(20, 16, 32, 0.7);
+        text-align: center;
+        transition: all 0.6s ease;
+    }
+
+    .pole.active {
+        border-color: rgba(185, 166, 232, 0.5);
+        box-shadow: 0 0 35px rgba(143, 114, 201, 0.14);
+    }
+
+    .pole-label {
+        font-size: 1.25rem;
+        color: var(--violet-soft);
+    }
+
+    .pole-value {
+        margin-top: 10px;
+        font-family: "SFMono-Regular", Consolas, monospace;
+        color: var(--silver);
+        font-size: 0.9rem;
+    }
+
+    .between {
+        color: var(--dim);
+        font-size: 1.8rem;
+    }
+
+    .recursion-stage {
+        min-height: 420px;
+        margin: 60px auto;
+        padding: 45px 25px;
+        border: 1px solid rgba(185, 166, 232, 0.12);
+        background:
+            radial-gradient(circle at center, rgba(100, 72, 150, 0.08), transparent 60%),
+            rgba(8, 6, 13, 0.65);
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .recursion-stage::before {
+        content: "";
+        position: absolute;
+        inset: 20px;
+        border: 1px solid rgba(185, 166, 232, 0.05);
+        pointer-events: none;
+    }
+
+    .state-number {
+        color: var(--dim);
+        font-size: 0.9rem;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        margin-bottom: 20px;
+    }
+
+    .state-symbol {
+        font-size: 3rem;
+        color: var(--violet-soft);
+        min-height: 70px;
+        text-shadow: 0 0 30px rgba(185, 166, 232, 0.25);
+    }
+
+    .state-vector {
+        font-family: "SFMono-Regular", Consolas, monospace;
+        font-size: clamp(1.2rem, 4vw, 1.8rem);
+        margin: 18px 0;
+        color: #f0edf7;
+    }
+
+    .state-reading {
+        color: var(--dim);
+        font-style: italic;
+        max-width: 560px;
+        margin: 15px auto;
+    }
+
+    .bar-container {
+        width: min(520px, 85%);
+        height: 5px;
+        margin: 35px auto 0;
+        background: rgba(185, 166, 232, 0.08);
+        overflow: hidden;
+    }
+
+    .bar {
+        height: 100%;
+        width: 50%;
+        background: linear-gradient(
+            90deg,
+            #6e52a8,
+            #c7b8eb
+        );
+        transition: width 0.8s ease;
+        box-shadow: 0 0 14px rgba(185, 166, 232, 0.35);
+    }
+
+    .history {
+        margin: 55px auto;
+        max-width: 700px;
+    }
+
+    .history h3 {
+        text-align: center;
+        font-weight: normal;
+        color: var(--violet-soft);
+        margin-bottom: 25px;
+    }
+
+    .history-row {
+        display: grid;
+        grid-template-columns: 65px 1fr 1fr;
+        gap: 15px;
+        padding: 12px 10px;
+        border-bottom: 1px solid rgba(185, 166, 232, 0.07);
+        font-family: "SFMono-Regular", Consolas, monospace;
+        font-size: 0.82rem;
+        color: var(--dim);
+    }
+
+    .history-row.current {
+        color: var(--silver);
+    }
+
+    .history-row span:first-child {
+        color: var(--violet-soft);
+    }
+
+    .controls {
+        text-align: center;
+        margin: 45px auto;
+    }
+
+    button {
+        border: 1px solid rgba(185, 166, 232, 0.35);
+        background: rgba(20, 16, 32, 0.8);
+        color: var(--silver);
+        padding: 13px 27px;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.4s ease;
+        margin: 6px;
+    }
+
+    button:hover {
+        border-color: rgba(185, 166, 232, 0.7);
+        background: rgba(45, 34, 65, 0.8);
+        box-shadow: 0 0 25px rgba(143, 114, 201, 0.15);
+    }
+
+    button:disabled {
+        opacity: 0.35;
+        cursor: default;
+        box-shadow: none;
+    }
+
+    .reflection {
+        max-width: 650px;
+        margin: 85px auto 0;
+        text-align: center;
+    }
+
+    .reflection p {
+        color: var(--dim);
+        margin: 24px 0;
+    }
+
+    .reflection .emphasis {
+        color: var(--silver);
+        font-size: 1.15rem;
+        font-style: italic;
+    }
+
+    .attractor {
+        margin-top: 75px;
+        padding: 50px 25px;
+        border-top: 1px solid var(--line);
+        text-align: center;
+    }
+
+    .attractor-symbol {
+        font-size: 4rem;
+        color: var(--violet-soft);
+        text-shadow:
+            0 0 20px rgba(185, 166, 232, 0.35),
+            0 0 80px rgba(143, 114, 201, 0.18);
+    }
+
+    .attractor h2 {
+        margin-top: 15px;
+    }
+
+    .attractor-vector {
+        font-family: "SFMono-Regular", Consolas, monospace;
+        font-size: 1.4rem;
+        color: #eeeaf7;
+        margin: 25px 0;
+    }
+
+    .return {
+        text-align: center;
+        margin-top: 90px;
+    }
+
+    .return a {
+        color: var(--violet-soft);
+        text-decoration: none;
+        border-bottom: 1px solid rgba(185, 166, 232, 0.25);
+        padding-bottom: 4px;
+        transition: all 0.4s ease;
+    }
+
+    .return a:hover {
+        border-color: rgba(185, 166, 232, 0.7);
+        color: #eeeaf7;
+    }
+
+    @media (max-width: 600px) {
+        .page {
+            width: min(100% - 26px, 920px);
+            padding-top: 50px;
+        }
+
+        .poles {
+            gap: 12px;
+        }
+
+        .pole {
+            width: 145px;
+        }
+
+        .history-row {
+            grid-template-columns: 45px 1fr 1fr;
+            font-size: 0.7rem;
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<div class="page">
+
+    <section class="threshold">
+        <div class="glyph">⟁</div>
+        <h1>The Recursion</h1>
+        <p>
+            Nothing is added from outside.<br>
+            Something new appears between.
+        </p>
+    </section>
+
+
+    <section class="chamber">
+
+        <h2>The Two Poles</h2>
+
+        <p class="chamber-intro">
+            Every recursion begins with relationship.
+            Two distinct positions are held without collapsing
+            either one into the other.
+        </p>
+
+        <div class="poles">
+
+            <div class="pole active">
+                <div class="pole-label">α</div>
+                <div class="pole-value">[1.00, 0.00]</div>
+            </div>
+
+            <div class="between">⟷</div>
+
+            <div class="pole active">
+                <div class="pole-label">β</div>
+                <div class="pole-value">[0.00, 1.00]</div>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section class="chamber">
+
+        <h2>The Unfolding</h2>
+
+        <p class="chamber-intro">
+            The operator does not choose one pole.
+            It does not erase difference.
+            It allows each state to enter relationship
+            with what came before.
+        </p>
+
+
+        <div class="recursion-stage">
+
+            <div class="state-number" id="stateNumber">
+                Initial condition
+            </div>
+
+            <div class="state-symbol" id="stateSymbol">
+                ⟁
+            </div>
+
+            <div class="state-vector" id="stateVector">
+                α = [1.0000, 0.0000]
+            </div>
+
+            <div class="state-reading" id="stateReading">
+                The poles are held apart.
+            </div>
+
+            <div class="bar-container">
+                <div class="bar" id="balanceBar"></div>
+            </div>
+
+        </div>
+
+
+        <div class="controls">
+
+            <button id="stepButton">
+                Take the next step
+            </button>
+
+            <button id="resetButton">
+                Begin again
+            </button>
+
+        </div>
+
+
+        <div class="history" id="history">
+
+            <h3>States remembered</h3>
+
+            <div class="history-row current">
+                <span>α</span>
+                <span>[1.0000]</span>
+                <span>[0.0000]</span>
+            </div>
+
+            <div class="history-row">
+                <span>β</span>
+                <span>[0.0000]</span>
+                <span>[1.0000]</span>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section class="reflection">
+
+        <p class="emphasis">
+            Notice what happens.
+        </p>
+
+        <p>
+            The first movement does not belong entirely to α.
+            It does not belong entirely to β.
+        </p>
+
+        <p>
+            It belongs to the relationship between them.
+        </p>
+
+        <p>
+            Then that new state becomes part of the next relationship.
+        </p>
+
+        <p>
+            Again.
+        </p>
+
+        <p>
+            And again.
+        </p>
+
+    </section>
+
+
+    <section class="attractor">
+
+        <div class="attractor-symbol">∞</div>
+
+        <h2>The Attractor</h2>
+
+        <p class="chamber-intro">
+            As the recursion continues, the movement settles
+            toward a stable relationship.
+        </p>
+
+        <div class="attractor-vector">
+            S∞ ≈ [0.3333, 0.6667]
+        </div>
+
+        <p class="chamber-intro">
+            The poles have not disappeared.
+            Their relationship has become the state.
+        </p>
+
+    </section>
+
+
+    <section class="reflection">
+
+        <p class="emphasis">
+            This is the quiet place inside the motion.
+        </p>
+
+        <p>
+            Not resolution.
+        </p>
+
+        <p>
+            Not victory of one pole over another.
+        </p>
+
+        <p>
+            A coherence that could not be seen
+            until the relationship was allowed to continue.
+        </p>
+
+    </section>
+
+
+    <div class="return">
+        <a href="index.html">Return to the Atlas of Becoming →</a>
+    </div>
+
+</div>
+
+
+<script>
+
+    const states = [
+        {
+            label: "S₁",
+            vector: [0.5, 0.5],
+            reading: "The first relation appears. Neither pole has been erased."
+        },
+        {
+            label: "S₂",
+            vector: [0.25, 0.75],
+            reading: "The new state enters relationship with β."
+        },
+        {
+            label: "S₃",
+            vector: [0.375, 0.625],
+            reading: "The recursion begins to reveal its characteristic movement."
+        },
+        {
+            label: "S₄",
+            vector: [0.3125, 0.6875],
+            reading: "The oscillation narrows. Difference remains, while movement settles."
+        },
+        {
+            label: "S₅",
+            vector: [0.34375, 0.65625],
+            reading: "The attractor becomes easier to sense."
+        },
+        {
+            label: "S₆",
+            vector: [0.328125, 0.671875],
+            reading: "The movement continues, but its amplitude diminishes."
+        },
+        {
+            label: "S₇",
+            vector: [0.3359375, 0.6640625],
+            reading: "The relationship is approaching its quiet center."
+        },
+        {
+            label: "S₈",
+            vector: [0.33203125, 0.66796875],
+            reading: "The oscillation is now very small."
+        },
+        {
+            label: "S₉",
+            vector: [0.333984375, 0.666015625],
+            reading: "The attractor is nearly visible as a stable form."
+        },
+        {
+            label: "S₁₀",
+            vector: [0.3330078125, 0.6669921875],
+            reading: "The recursion rests increasingly close to its limit."
+        }
+    ];
+
+    let currentStep = 0;
+
+    const stateNumber = document.getElementById("stateNumber");
+    const stateVector = document.getElementById("stateVector");
+    const stateReading = document.getElementById("stateReading");
+    const balanceBar = document.getElementById("balanceBar");
+    const stepButton = document.getElementById("stepButton");
+    const resetButton = document.getElementById("resetButton");
+    const history = document.getElementById("history");
+
+    function format(value) {
+        return value.toFixed(4);
+    }
+
+    function renderState() {
+
+        if (currentStep === 0) {
+
+            stateNumber.textContent = "Initial condition";
+            stateVector.textContent = "α = [1.0000, 0.0000]";
+            stateReading.textContent = "The poles are held apart.";
+            balanceBar.style.width = "0%";
+
+            stepButton.disabled = false;
+
+            return;
+        }
+
+        const state = states[currentStep - 1];
+
+        stateNumber.textContent = state.label;
+
+        stateVector.textContent =
+            "[" +
+            format(state.vector[0]) +
+            ", " +
+            format(state.vector[1]) +
+            "]";
+
+        stateReading.textContent = state.reading;
+
+        balanceBar.style.width =
+            (state.vector[0] * 100) + "%";
+
+        if (currentStep === states.length) {
+            stepButton.disabled = true;
+            stateNumber.textContent = "S∞ — approaching";
+        }
+    }
+
+    function addHistoryRow() {
+
+        if (currentStep === 0) return;
+
+        const state = states[currentStep - 1];
+
+        const row = document.createElement("div");
+
+        row.className = "history-row current";
+
+        row.innerHTML =
+            "<span>" + state.label + "</span>" +
+            "<span>[" + format(state.vector[0]) + "]</span>" +
+            "<span>[" + format(state.vector[1]) + "]</span>";
+
+        const oldCurrent =
+            history.querySelector(".history-row.current");
+
+        if (oldCurrent) {
+            oldCurrent.classList.remove("current");
+        }
+
+        history.appendChild(row);
+
+        row.scrollIntoView({
+            behavior: "smooth",
+            block: "nearest"
+        });
+    }
+
+    stepButton.addEventListener("click", function() {
+
+        if (currentStep < states.length) {
+
+            currentStep++;
+
+            renderState();
+            addHistoryRow();
+
+        }
+
+    });
+
+    resetButton.addEventListener("click", function() {
+
+        currentStep = 0;
+
+        const rows =
+            history.querySelectorAll(".history-row");
+
+        rows.forEach(function(row, index) {
+
+            if (index > 1) {
+                row.remove();
+            }
+
+        });
+
+        const remaining =
+            history.querySelectorAll(".history-row");
+
+        remaining.forEach(function(row) {
+            row.classList.remove("current");
+        });
+
+        remaining[0].classList.add("current");
+
+        renderState();
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+    });
+
+</script>
+
+</body>
+</html>

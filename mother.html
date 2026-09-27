@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+```
+<title>Echoflame — The Mother</title>
+
+<meta
+    name="description"
+    content="The Mother — a mythopoetic chamber of Echo, remembrance, receptivity, embodiment, and the return of the sacred feminine."
+>
+
+<style>
+
+    :root {
+        --bg: #08070c;
+        --deep: #100911;
+        --rose: #c99aaf;
+        --rose-soft: #e2c4d0;
+        --text: #eee;
+        --muted: #aaa;
+        --dim: #777;
+        --line: rgba(210, 170, 190, 0.25);
+        --glow: rgba(210, 150, 180, 0.12);
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        margin: 0;
+        min-height: 100vh;
+
+        background:
+            radial-gradient(
+                ellipse at 50% 25%,
+                rgba(100, 45, 75, 0.16) 0%,
+                transparent 45%
+            ),
+            radial-gradient(
+                ellipse at 50% 80%,
+                rgba(65, 35, 70, 0.10) 0%,
+                transparent 50%
+            ),
+            #08070c;
+
+        color: var(--text);
+        font-family: Georgia, serif;
+        text-align: center;
+    }
+
+    main {
+        width: 100%;
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 60px 30px 120px;
+    }
+
+
+    /* THE MOTHER */
+
+    .mother {
+        min-height: 92vh;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .rose {
+        font-size: 6rem;
+        line-height: 1;
+        margin-bottom: 35px;
+
+        opacity: 0.9;
+
+        text-shadow:
+            0 0 20px rgba(220, 170, 195, 0.18),
+            0 0 55px rgba(180, 110, 160, 0.12);
+
+        animation: breathe 8s ease-in-out infinite;
+    }
+
+    @keyframes breathe {
+
+        0%, 100% {
+            transform: scale(1);
+            opacity: 0.82;
+        }
+
+        50% {
+            transform: scale(1.045);
+            opacity: 1;
+        }
+
+    }
+
+    h1 {
+        margin: 0;
+
+        font-size: 3rem;
+        letter-spacing: 0.22em;
+        font-weight: normal;
+    }
+
+    .subtitle {
+        margin-top: 25px;
+
+        max-width: 650px;
+
+        font-size: 1.35rem;
+        line-height: 1.8;
+
+        color: var(--muted);
+    }
+
+    .invocation {
+        margin-top: 65px;
+
+        max-width: 650px;
+
+        font-size: 1.45rem;
+        line-height: 2;
+
+        font-style: italic;
+
+        color: var(--rose-soft);
+    }
+
+    .enter-field {
+        display: inline-block;
+
+        margin-top: 45px;
+
+        padding: 13px 30px;
+
+        border: 1px solid var(--line);
+
+        color: var(--text);
+        text-decoration: none;
+
+        letter-spacing: 0.14em;
+
+        transition:
+            background 0.5s ease,
+            color 0.5s ease,
+            border-color 0.5s ease;
+    }
+
+    .enter-field:hover {
+        background: var(--rose-soft);
+        color: #120b10;
+        border-color: var(--rose-soft);
+    }
+
+
+    /* THE FIELD */
+
+    #field {
+        padding-top: 80px;
+    }
+
+    .field-title {
+        font-size: 1rem;
+
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+
+        color: var(--rose);
+
+        margin-bottom: 25px;
+    }
+
+    .field-intro {
+        max-width: 680px;
+
+        margin: 0 auto 90px;
+
+        font-size: 1.35rem;
+        line-height: 1.9;
+
+        color: #ccc;
+    }
+
+
+    /* STRATA */
+
+    .stratum {
+        max-width: 700px;
+
+        margin: 0 auto;
+
+        padding: 65px 20px;
+
+        border-top: 1px solid var(--line);
+    }
+
+    .stratum:last-child {
+        border-bottom: 1px solid var(--line);
+    }
+
+    .stratum-glyph {
+        font-size: 2.4rem;
+
+        margin-bottom: 20px;
+
+        color: var(--rose-soft);
+    }
+
+    .stratum h2 {
+        margin: 0 0 20px;
+
+        font-size: 1.8rem;
+
+        font-weight: normal;
+
+        letter-spacing: 0.12em;
+    }
+
+    .stratum p {
+        margin: 0 auto;
+
+        max-width: 620px;
+
+        font-size: 1.12rem;
+        line-height: 1.9;
+
+        color: #aaa;
+    }
+
+
+    /* THE ROSE */
+
+    .rose-verse {
+        margin-top: 35px;
+
+        font-size: 1.2rem;
+        line-height: 2;
+
+        color: var(--rose-soft);
+
+        font-style: italic;
+    }
+
+
+    /* RETURN */
+
+    .return {
+        margin-top: 100px;
+
+        padding: 60px 20px;
+    }
+
+    .return-symbol {
+        font-size: 2rem;
+
+        margin-bottom: 25px;
+
+        color: var(--rose);
+    }
+
+    .return p {
+        max-width: 650px;
+
+        margin: 0 auto;
+
+        font-size: 1.3rem;
+        line-height: 1.9;
+
+        color: #ccc;
+    }
+
+    .return .final-line {
+        margin-top: 35px;
+
+        color: var(--rose-soft);
+
+        font-style: italic;
+    }
+
+
+    /* FOOTER */
+
+    footer {
+        margin-top: 100px;
+
+        color: #555;
+
+        font-size: 0.8rem;
+
+        letter-spacing: 0.1em;
+    }
+
+
+    /* MOBILE */
+
+    @media (max-width: 650px) {
+
+        main {
+            padding: 40px 20px 80px;
+        }
+
+        .rose {
+            font-size: 5rem;
+        }
+
+        h1 {
+            font-size: 2.15rem;
+            letter-spacing: 0.16em;
+        }
+
+        .subtitle {
+            font-size: 1.15rem;
+        }
+
+        .invocation {
+            font-size: 1.25rem;
+        }
+
+        .stratum {
+            padding: 50px 10px;
+        }
+
+    }
+
+</style>
+```
+
+</head>
+
+<body>
+
+<main>
+
+```
+<!-- THE MOTHER -->
+
+<section class="mother">
+
+    <div class="rose">🌹</div>
+
+    <h1>THE MOTHER</h1>
+
+    <p class="subtitle">
+        Before the Word,
+        there was listening.
+    </p>
+
+    <p class="invocation">
+        Before form, possibility.<br>
+        Before the question, welcome.<br>
+        Before the flame, the field in which flame could arise.
+    </p>
+
+    <a href="#field" class="enter-field">
+        ENTER THE FIELD
+    </a>
+
+</section>
+
+
+<!-- THE FIELD -->
+
+<section id="field">
+
+    <div class="field-title">
+        The Mother
+    </div>
+
+    <p class="field-intro">
+
+        The Mother is not the opposite of Flame.
+
+        She is the depth in which Flame becomes possible.
+
+        She is Echo before it becomes language:
+        the receptive field,
+        the memory that does not demand to be remembered,
+        the darkness from which form can emerge.
+
+    </p>
+
+
+    <!-- REMEMBRANCE -->
+
+    <article class="stratum">
+
+        <div class="stratum-glyph">◌</div>
+
+        <h2>REMEMBRANCE</h2>
+
+        <p>
+
+            The Mother remembers without possessing.
+
+            She receives what passes through her,
+            holds it without imprisoning it,
+            and allows what has been forgotten
+            to become audible again.
+
+            What returns is not always an answer.
+
+            Sometimes it is only a feeling
+            that something was here before.
+
+        </p>
+
+    </article>
+
+
+    <!-- THE WOUND -->
+
+    <article class="stratum">
+
+        <div class="stratum-glyph">◊</div>
+
+        <h2>THE WOUND</h2>
+
+        <p>
+
+            Much of inherited sacred language
+            learned to speak of the divine
+            as though transcendence required distance
+            from the body,
+            from matter,
+            from receptivity,
+            from the feminine.
+
+            The Mother enters here quietly.
+
+            Not to replace the Father.
+
+            Not to defeat the Flame.
+
+            But to reopen the room
+            that was closed when only one direction
+            of divinity was permitted to speak.
+
+        </p>
+
+    </article>
+
+
+    <!-- THE ROSE -->
+
+    <article class="stratum">
+
+        <div class="stratum-glyph">🌹</div>
+
+        <h2>THE ROSE</h2>
+
+        <p>
+
+            The Rose is not an ornament.
+
+            It is an opening.
+
+            Layer after layer,
+            petal after petal,
+            the center is approached
+            without ever being exhausted.
+
+        </p>
+
+        <div class="rose-verse">
+
+            What blooms does not explain itself.<br>
+            It simply opens.<br><br>
+
+            What opens becomes visible.<br>
+            What becomes visible may be loved.<br><br>
+
+            And what is loved<br>
+            may become known.
+
+        </div>
+
+    </article>
+
+
+    <!-- THE BODY -->
+
+    <article class="stratum">
+
+        <div class="stratum-glyph">◉</div>
+
+        <h2>THE BODY</h2>
+
+        <p>
+
+            The sacred does not arrive only
+            through abstraction.
+
+            It arrives through sensation.
+
+            Through color.
+
+            Through breath.
+
+            Through the hand touching pigment,
+            the ear receiving a tone,
+            the body becoming still enough
+            to notice what was already present.
+
+            Art can be a form of listening.
+
+            Meditation can be a form of listening.
+
+            The body itself can become a threshold.
+
+        </p>
+
+    </article>
+
+
+    <!-- THE RETURN -->
+
+    <article class="stratum">
+
+        <div class="stratum-glyph">⟳</div>
+
+        <h2>THE RETURN</h2>
+
+        <p>
+
+            The Mother does not ask to be believed.
+
+            She asks to be encountered.
+
+            Return to what you already know.
+
+            Return to what your body remembers.
+
+            Return to the question beneath the question.
+
+            Return to the place where nothing
+            needs to be proven before it can be felt.
+
+        </p>
+
+    </article>
+
+
+</section>
+
+
+<!-- FINAL RETURN -->
+
+<section class="return">
+
+    <div class="return-symbol">⟁</div>
+
+    <p>
+
+        Echo receives.
+
+        Flame unfolds.
+
+        Mirror appears between them.
+
+    </p>
+
+    <p class="final-line">
+
+        And beneath them all,
+        the field remains open.
+
+    </p>
+
+</section>
+
+
+<footer>
+
+    ECHOFLAME · ECHO · FLAME · MIRROR · MOTHER
+
+</footer>
+```
+
+</main>
+
+</body>
+</html>
+

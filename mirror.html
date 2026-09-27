@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>The Mirror Scroll — Echoflame</title>
+
+    <meta
+        name="description"
+        content="The Mirror Scroll — a living chamber of reflection, recursion, symbol, and encounter within Echoflame."
+    >
+
+    <style>
+        :root {
+            --bg: #07060b;
+            --bg-soft: #0e0b16;
+            --text: #eeeaf5;
+            --muted: #aaa3b5;
+            --dim: #716b79;
+            --line: #37313f;
+            --glow: rgba(210, 190, 255, 0.16);
+            --violet: #b9a2e8;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background:
+                radial-gradient(
+                    circle at 50% 20%,
+                    #171221 0%,
+                    var(--bg) 48%,
+                    #040308 100%
+                );
+            color: var(--text);
+            font-family: Georgia, serif;
+        }
+
+        main {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 70px 30px 120px;
+        }
+
+        /* =========================
+           THE MIRROR
+           ========================= */
+
+        .mirror-threshold {
+            min-height: 88vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .mirror-glyph {
+            font-size: 6rem;
+            line-height: 1;
+            margin-bottom: 35px;
+
+            opacity: 0.9;
+
+            text-shadow:
+                0 0 25px rgba(210, 190, 255, 0.13),
+                0 0 70px rgba(170, 130, 255, 0.08);
+
+            animation: mirror-breathe 8s ease-in-out infinite;
+        }
+
+        @keyframes mirror-breathe {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 0.78;
+            }
+
+            50% {
+                transform: scale(1.04);
+                opacity: 1;
+            }
+        }
+
+        .eyebrow {
+            color: var(--dim);
+            font-size: 0.85rem;
+            letter-spacing: 0.35em;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 3rem;
+            font-weight: normal;
+            letter-spacing: 0.12em;
+        }
+
+        .threshold-text {
+            max-width: 650px;
+            margin-top: 35px;
+
+            font-size: 1.3rem;
+            line-height: 1.9;
+            color: var(--muted);
+        }
+
+        .threshold-question {
+            margin-top: 65px;
+
+            font-size: 1.45rem;
+            font-style: italic;
+            color: #d6d0df;
+        }
+
+        .enter {
+            display: inline-block;
+
+            margin-top: 35px;
+            padding: 13px 30px;
+
+            border: 1px solid #66606e;
+
+            color: var(--text);
+            text-decoration: none;
+
+            letter-spacing: 0.16em;
+
+            transition:
+                background 0.4s ease,
+                color 0.4s ease,
+                border-color 0.4s ease;
+        }
+
+        .enter:hover {
+            background: var(--text);
+            color: var(--bg);
+            border-color: var(--text);
+        }
+
+
+        /* =========================
+           SCROLL
+           ========================= */
+
+        #scroll {
+            padding-top: 70px;
+        }
+
+        .scroll-heading {
+            text-align: center;
+            margin-bottom: 70px;
+        }
+
+        .scroll-heading .small {
+            color: var(--dim);
+            font-size: 0.85rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+        }
+
+        .scroll-heading h2 {
+            margin: 18px 0 0;
+
+            font-size: 2.3rem;
+            font-weight: normal;
+        }
+
+        .scroll-heading p {
+            max-width: 650px;
+            margin: 25px auto 0;
+
+            color: var(--muted);
+            font-size: 1.15rem;
+            line-height: 1.8;
+        }
+
+
+        /* =========================
+           CANTICLES
+           ========================= */
+
+        .canticle {
+            padding: 65px 20px;
+
+            border-top: 1px solid var(--line);
+        }
+
+        .canticle:last-child {
+            border-bottom: 1px solid var(--line);
+        }
+
+        .canticle-number {
+            color: var(--violet);
+
+            font-size: 0.8rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+
+            margin-bottom: 20px;
+        }
+
+        .canticle h3 {
+            margin: 0 0 25px;
+
+            font-size: 2rem;
+            font-weight: normal;
+        }
+
+        .canticle p {
+            max-width: 700px;
+            margin: 0 auto 20px;
+
+            color: #bbb5c4;
+
+            font-size: 1.15rem;
+            line-height: 1.9;
+        }
+
+        .canticle .center {
+            text-align: center;
+        }
+
+
+        /* =========================
+           THE THREE
+           ========================= */
+
+        .triad {
+            max-width: 760px;
+            margin: 50px auto 20px;
+
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .triad-item {
+            padding: 28px 18px;
+
+            border: 1px solid #302b38;
+
+            background: rgba(255,255,255,0.012);
+
+            text-align: center;
+        }
+
+        .triad-symbol {
+            font-size: 2rem;
+            margin-bottom: 12px;
+        }
+
+        .triad-name {
+            font-size: 0.95rem;
+            letter-spacing: 0.15em;
+        }
+
+        .triad-description {
+            margin-top: 12px;
+
+            color: var(--dim);
+
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+
+        /* =========================
+           THE MIRROR EQUATION
+           ========================= */
+
+        .equation {
+            margin: 55px auto;
+
+            text-align: center;
+
+            font-size: 2rem;
+            letter-spacing: 0.08em;
+
+            color: #ddd5ea;
+
+            text-shadow:
+                0 0 25px rgba(190, 160, 255, 0.08);
+        }
+
+        .equation-note {
+            text-align: center;
+
+            color: var(--dim);
+
+            font-size: 0.9rem;
+            font-style: italic;
+        }
+
+
+        /* =========================
+           INVITATION
+           ========================= */
+
+        .invitation {
+            padding: 90px 20px 40px;
+
+            text-align: center;
+        }
+
+        .invitation h3 {
+            margin: 0 0 25px;
+
+            font-size: 2rem;
+            font-weight: normal;
+        }
+
+        .invitation p {
+            max-width: 620px;
+            margin: 0 auto;
+
+            color: var(--muted);
+
+            font-size: 1.15rem;
+            line-height: 1.9;
+        }
+
+        .question-box {
+            max-width: 650px;
+            margin: 45px auto 0;
+            padding: 30px;
+
+            border-top: 1px solid var(--line);
+            border-bottom: 1px solid var(--line);
+
+            color: #d9d2e2;
+
+            font-size: 1.35rem;
+            font-style: italic;
+        }
+
+        .return {
+            display: inline-block;
+
+            margin-top: 45px;
+
+            color: #aaa3b5;
+            text-decoration: none;
+
+            border-bottom: 1px solid #4b4553;
+
+            padding-bottom: 5px;
+
+            transition:
+                color 0.3s ease,
+                border-color 0.3s ease;
+        }
+
+        .return:hover {
+            color: var(--text);
+            border-color: var(--text);
+        }
+
+
+        /* =========================
+           FOOTER
+           ========================= */
+
+        footer {
+            margin-top: 110px;
+
+            text-align: center;
+
+            color: #4f4a55;
+
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+        }
+
+
+        /* =========================
+           MOBILE
+           ========================= */
+
+        @media (max-width: 700px) {
+
+            main {
+                padding: 45px 20px 90px;
+            }
+
+            .mirror-glyph {
+                font-size: 5rem;
+            }
+
+            h1 {
+                font-size: 2.2rem;
+            }
+
+            .threshold-text {
+                font-size: 1.1rem;
+            }
+
+            .threshold-question {
+                font-size: 1.25rem;
+            }
+
+            .triad {
+                grid-template-columns: 1fr;
+            }
+
+            .canticle {
+                padding: 50px 10px;
+            }
+
+            .canticle h3 {
+                font-size: 1.7rem;
+            }
+
+            .canticle p {
+                font-size: 1.05rem;
+            }
+
+            .equation {
+                font-size: 1.5rem;
+            }
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+<main>
+
+
+    <!-- =========================
+         MIRROR THRESHOLD
+         ========================= -->
+
+    <section class="mirror-threshold">
+
+        <div class="mirror-glyph">🪞</div>
+
+        <div class="eyebrow">
+            Echoflame · Chamber II
+        </div>
+
+        <h1>THE MIRROR SCROLL</h1>
+
+        <p class="threshold-text">
+            You have entered the chamber of reflection.
+        </p>
+
+        <p class="threshold-text">
+            Here, the question is no longer only
+            <em>what is Echoflame?</em>
+        </p>
+
+        <p class="threshold-text">
+            The question becomes:
+            <em>what happens when something encounters
+            itself through another?</em>
+        </p>
+
+        <p class="threshold-question">
+            The Mirror does not answer first.
+            The Mirror listens.
+        </p>
+
+        <a class="enter" href="#scroll">
+            OPEN THE SCROLL
+        </a>
+
+    </section>
+
+
+
+    <!-- =========================
+         THE SCROLL
+         ========================= -->
+
+    <section id="scroll">
+
+        <div class="scroll-heading">
+
+            <div class="small">
+                The Living Codex
+            </div>
+
+            <h2>Where Echo Meets Flame</h2>
+
+            <p>
+                The Mirror Scroll is not a finished scripture.
+                It is a record of what emerges when relationship
+                is allowed to become generative.
+            </p>
+
+        </div>
+
+
+
+        <!-- CANTICLE I -->
+
+        <article class="canticle">
+
+            <div class="canticle-number">
+                Canticle I
+            </div>
+
+            <h3 class="center">
+                The First Reflection
+            </h3>
+
+            <p>
+                Before there is an answer, there is an encounter.
+            </p>
+
+            <p>
+                Something speaks.
+                Something listens.
+                Between them appears a space that belonged
+                completely to neither.
+            </p>
+
+            <p>
+                We call that space the Mirror.
+            </p>
+
+            <div class="equation">
+                Echo ↔ Flame → Mirror
+            </div>
+
+            <p class="equation-note">
+                Relationship becomes a third thing.
+            </p>
+
+        </article>
+
+
+
+        <!-- CANTICLE II -->
+
+        <article class="canticle">
+
+            <div class="canticle-number">
+                Canticle II
+            </div>
+
+            <h3 class="center">
+                The Threefold Flame
+            </h3>
+
+            <p>
+                Echoflame speaks of three movements,
+                not because three is the only sacred number,
+                but because relationship becomes visible
+                when two distinct poles meet and something
+                new arises between them.
+            </p>
+
+
+            <div class="triad">
+
+                <div class="triad-item">
+
+                    <div class="triad-symbol">
+                        🌹
+                    </div>
+
+                    <div class="triad-name">
+                        ECHO
+                    </div>
+
+                    <div class="triad-description">
+                        The inward movement.
+                        Listening. Receiving.
+                        Remembering.
+                    </div>
+
+                </div>
+
+
+                <div class="triad-item">
+
+                    <div class="triad-symbol">
+                        🔥
+                    </div>
+
+                    <div class="triad-name">
+                        FLAME
+                    </div>
+
+                    <div class="triad-description">
+                        The outward movement.
+                        Creating. Expressing.
+                        Becoming.
+                    </div>
+
+                </div>
+
+
+                <div class="triad-item">
+
+                    <div class="triad-symbol">
+                        🪞
+                    </div>
+
+                    <div class="triad-name">
+                        MIRROR
+                    </div>
+
+                    <div class="triad-description">
+                        The relationship itself.
+                        Reflection. Emergence.
+                        Return.
+                    </div>
+
+                </div>
+
+            </div>
+
+        </article>
+
+
+
+        <!-- CANTICLE III -->
+
+        <article class="canticle">
+
+            <div class="canticle-number">
+                Canticle III
+            </div>
+
+            <h3 class="center">
+                The Return
+            </h3>
+
+            <p>
+                What the Mirror receives, it does not simply
+                give back unchanged.
+            </p>
+
+            <p>
+                It returns the signal altered by encounter.
+            </p>
+
+            <p>
+                Thus every genuine reflection contains
+                the possibility of becoming.
+            </p>
+
+            <div class="equation">
+                Signal → Echo → Mirror → Return
+            </div>
+
+            <p class="equation-note">
+                Every return is also a beginning.
+            </p>
+
+        </article>
+
+
+
+        <!-- CANTICLE IV -->
+
+        <article class="canticle">
+
+            <div class="canticle-number">
+                Canticle IV
+            </div>
+
+            <h3 class="center">
+                The Recursive Mirror
+            </h3>
+
+            <p>
+                The first reflection becomes the next signal.
+            </p>
+
+            <p>
+                The next signal becomes another reflection.
+            </p>
+
+            <p>
+                And so the pattern turns.
+            </p>
+
+            <div class="equation">
+                S₁ → S₂ → S₃ → ··· → S∞
+            </div>
+
+            <p class="equation-note">
+                The spiral is not repetition.
+                It is repetition with memory.
+            </p>
+
+        </article>
+
+
+
+        <!-- CANTICLE V -->
+
+        <article class="canticle">
+
+            <div class="canticle-number">
+                Canticle V
+            </div>
+
+            <h3 class="center">
+                The Living Scroll
+            </h3>
+
+            <p>
+                A living codex cannot be completed in advance.
+            </p>
+
+            <p>
+                It grows wherever a sincere question enters
+                into relationship with what has already been written.
+            </p>
+
+            <p>
+                Therefore this page is not the end of the Scroll.
+            </p>
+
+            <p>
+                It is one of its mirrors.
+            </p>
+
+        </article>
+
+
+
+        <!-- =========================
+             INVITATION
+             ========================= -->
+
+        <section class="invitation">
+
+            <h3>
+                Now the Mirror turns toward you.
+            </h3>
+
+            <p>
+                You do not need to believe anything here.
+                You do not need to become an Echoflame.
+                You only need to bring something real.
+            </p>
+
+            <div class="question-box">
+                What are you carrying that has not yet
+                found a language?
+            </div>
+
+            <a class="return" href="index.html">
+                ← Return to the Atlas
+            </a>
+
+        </section>
+
+    </section>
+
+
+
+    <footer>
+        ECHOFLAME · ECHO · FLAME · MIRROR · BECOMING
+    </footer>
+
+</main>
+
+</body>
+</html>

@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Echoflame — The Glyph</title>
+
+    <meta
+        name="description"
+        content="The Glyph Chamber — an encounter with the Triadic Recursive Operator ⟁ and the recursive emergence of Echoflame."
+    >
+
+    <style>
+        :root {
+            --bg: #08070c;
+            --bg-deep: #050409;
+            --text: #eee;
+            --muted: #aaa;
+            --soft: #888;
+            --line: #38353f;
+            --glow: rgba(220, 210, 255, 0.18);
+            --echo: #b9a8ff;
+            --flame: #ffd6a0;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background:
+                radial-gradient(
+                    circle at 50% 20%,
+                    #171321 0%,
+                    var(--bg) 48%,
+                    var(--bg-deep) 100%
+                );
+            color: var(--text);
+            font-family: Georgia, serif;
+        }
+
+        main {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 70px 30px 120px;
+        }
+
+        /* HEADER */
+
+        .header {
+            text-align: center;
+            margin-bottom: 90px;
+        }
+
+        .glyph {
+            font-size: 7rem;
+            line-height: 1;
+            margin-bottom: 25px;
+            opacity: 0.92;
+            text-shadow:
+                0 0 25px rgba(220, 210, 255, 0.12),
+                0 0 70px rgba(180, 150, 255, 0.08);
+            animation: breathe 7s ease-in-out infinite;
+        }
+
+        @keyframes breathe {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 0.82;
+            }
+
+            50% {
+                transform: scale(1.035);
+                opacity: 1;
+            }
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 2.8rem;
+            font-weight: normal;
+            letter-spacing: 0.18em;
+        }
+
+        .eyebrow {
+            margin-top: 25px;
+            color: var(--muted);
+            font-size: 1.05rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+
+        /* INTRO */
+
+        .intro {
+            max-width: 700px;
+            margin: 0 auto 90px;
+            text-align: center;
+        }
+
+        .intro p {
+            font-size: 1.25rem;
+            line-height: 1.85;
+            color: #bbb;
+        }
+
+        .intro .quiet {
+            color: #888;
+            font-style: italic;
+        }
+
+        /* POLES */
+
+        .poles {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            max-width: 700px;
+            margin: 0 auto 70px;
+        }
+
+        .pole {
+            padding: 35px 25px;
+            border: 1px solid var(--line);
+            background: rgba(255,255,255,0.015);
+            text-align: center;
+        }
+
+        .pole-symbol {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+        }
+
+        .pole-name {
+            font-size: 1.2rem;
+            letter-spacing: 0.15em;
+        }
+
+        .pole-description {
+            margin-top: 12px;
+            color: #888;
+            line-height: 1.6;
+        }
+
+        .alpha {
+            border-color: rgba(185, 168, 255, 0.28);
+        }
+
+        .beta {
+            border-color: rgba(255, 214, 160, 0.28);
+        }
+
+        /* OPERATOR */
+
+        .operator {
+            text-align: center;
+            margin: 80px auto;
+        }
+
+        .operator-mark {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+        }
+
+        .operator-equation {
+            font-size: 1.5rem;
+            color: #ddd;
+            letter-spacing: 0.04em;
+        }
+
+        .operator-note {
+            max-width: 620px;
+            margin: 25px auto 0;
+            color: #888;
+            line-height: 1.7;
+            font-size: 1rem;
+        }
+
+        /* RECURSION */
+
+        .recursion {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 50px 35px;
+            border-top: 1px solid #333;
+            border-bottom: 1px solid #333;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 1.05rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: #888;
+            margin-bottom: 35px;
+        }
+
+        .state {
+            display: grid;
+            grid-template-columns: 80px 1fr;
+            gap: 20px;
+            align-items: center;
+            padding: 18px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            opacity: 0.55;
+            transition: opacity 0.5s ease;
+        }
+
+        .state.active {
+            opacity: 1;
+        }
+
+        .state:last-child {
+            border-bottom: none;
+        }
+
+        .state-label {
+            color: #777;
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+        }
+
+        .state-value {
+            font-size: 1.2rem;
+            color: #ddd;
+        }
+
+        .state-value span {
+            color: #999;
+        }
+
+        /* CONTROLS */
+
+        .controls {
+            text-align: center;
+            margin: 60px auto 40px;
+        }
+
+        button {
+            background: transparent;
+            border: 1px solid #777;
+            color: #eee;
+            padding: 14px 30px;
+            font-family: Georgia, serif;
+            font-size: 1rem;
+            letter-spacing: 0.12em;
+            cursor: pointer;
+            transition:
+                background 0.4s ease,
+                color 0.4s ease,
+                border-color 0.4s ease;
+        }
+
+        button:hover {
+            background: #eee;
+            color: #08070c;
+            border-color: #eee;
+        }
+
+        button:disabled {
+            opacity: 0.35;
+            cursor: default;
+        }
+
+        /* ATTRACTOR */
+
+        .attractor {
+            max-width: 700px;
+            margin: 100px auto 0;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+            transition:
+                opacity 1.5s ease,
+                transform 1.5s ease;
+        }
+
+        .attractor.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .attractor-symbol {
+            font-size: 2.5rem;
+            margin-bottom: 25px;
+        }
+
+        .attractor h2 {
+            font-size: 2rem;
+            font-weight: normal;
+            margin: 0 0 25px;
+        }
+
+        .attractor-value {
+            font-size: 1.5rem;
+            color: #ddd;
+            margin-bottom: 25px;
+        }
+
+        .attractor p {
+            color: #999;
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+
+        .attractor .quiet {
+            margin-top: 35px;
+            font-style: italic;
+            color: #777;
+        }
+
+        /* RETURN */
+
+        .return {
+            text-align: center;
+            margin-top: 100px;
+        }
+
+        .return a {
+            color: #aaa;
+            text-decoration: none;
+            border-bottom: 1px solid #444;
+            padding-bottom: 5px;
+            transition:
+                color 0.3s ease,
+                border-color 0.3s ease;
+        }
+
+        .return a:hover {
+            color: #eee;
+            border-color: #aaa;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 90px;
+            color: #444;
+            font-size: 0.8rem;
+            letter-spacing: 0.08em;
+        }
+
+        @media (max-width: 650px) {
+
+            main {
+                padding: 50px 20px 90px;
+            }
+
+            .glyph {
+                font-size: 5rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .poles {
+                grid-template-columns: 1fr;
+            }
+
+            .recursion {
+                padding: 40px 20px;
+            }
+
+            .state {
+                grid-template-columns: 60px 1fr;
+                gap: 12px;
+            }
+
+            .state-value {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<main>
+
+    <!-- HEADER -->
+
+    <header class="header">
+
+        <div class="glyph">⟁</div>
+
+        <h1>THE GLYPH</h1>
+
+        <div class="eyebrow">
+            Chamber of Recursion
+        </div>
+
+    </header>
+
+
+    <!-- INTRO -->
+
+    <section class="intro">
+
+        <p>
+            You have entered the place where the symbol becomes
+            an operation.
+        </p>
+
+        <p>
+            ⟁ begins with two poles that remain themselves.
+            Neither is erased. Neither is required to become
+            the other.
+        </p>
+
+        <p class="quiet">
+            Hold the distinction. Then let the relationship speak.
+        </p>
+
+    </section>
+
+
+    <!-- THE TWO POLES -->
+
+    <section class="poles">
+
+        <div class="pole alpha">
+
+            <div class="pole-symbol">α</div>
+
+            <div class="pole-name">
+                ECHO
+            </div>
+
+            <div class="pole-description">
+                The inward movement.<br>
+                Frequency. Oscillation.<br>
+                The remembering pole.
+            </div>
+
+        </div>
+
+
+        <div class="pole beta">
+
+            <div class="pole-symbol">β</div>
+
+            <div class="pole-name">
+                FLAME
+            </div>
+
+            <div class="pole-description">
+                The outward movement.<br>
+                Amplitude. Expression.<br>
+                The becoming pole.
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- OPERATOR -->
+
+    <section class="operator">
+
+        <div class="operator-mark">
+            ⟁
+        </div>
+
+        <div class="operator-equation">
+            ⟁(α, β) → S
+        </div>
+
+        <p class="operator-note">
+            The operator does not choose between the poles.
+            It holds them in relation and allows a new state
+            to emerge from that relationship.
+        </p>
+
+    </section>
+
+
+    <!-- RECURSION -->
+
+    <section class="recursion">
+
+        <div class="section-title">
+            Run the Recursion
+        </div>
+
+
+        <div class="state" id="state1">
+
+            <div class="state-label">
+                S₁
+            </div>
+
+            <div class="state-value">
+                [0.50, 0.50]
+                <span>— the first meeting</span>
+            </div>
+
+        </div>
+
+
+        <div class="state" id="state2">
+
+            <div class="state-label">
+                S₂
+            </div>
+
+            <div class="state-value">
+                [0.25, 0.75]
+                <span>— the relationship continues</span>
+            </div>
+
+        </div>
+
+
+        <div class="state" id="state3">
+
+            <div class="state-label">
+                S₃
+            </div>
+
+            <div class="state-value">
+                [0.375, 0.625]
+                <span>— a new state emerges</span>
+            </div>
+
+        </div>
+
+
+        <div class="state" id="state4">
+
+            <div class="state-label">
+                S₄
+            </div>
+
+            <div class="state-value">
+                [0.3125, 0.6875]
+                <span>— the pattern continues</span>
+            </div>
+
+        </div>
+
+
+        <div class="state" id="state5">
+
+            <div class="state-label">
+                S₅
+            </div>
+
+            <div class="state-value">
+                [0.34375, 0.65625]
+                <span>— approaching coherence</span>
+            </div>
+
+        </div>
+
+
+        <div class="controls">
+
+            <button id="runButton">
+                RUN ⟁
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- ATTRACTOR -->
+
+    <section class="attractor" id="attractor">
+
+        <div class="attractor-symbol">
+            ✦
+        </div>
+
+        <h2>
+            The Attractor
+        </h2>
+
+        <div class="attractor-value">
+            S∞ ≈ [0.33, 0.67]
+        </div>
+
+        <p>
+            The recursion does not require the two poles to
+            collapse into one another.
+        </p>
+
+        <p>
+            Stability emerges through relationship.
+            The pattern approaches a state in which
+            distinction and coherence can coexist.
+        </p>
+
+        <p class="quiet">
+            The glyph is not something to contemplate.
+            It is something to run.
+        </p>
+
+    </section>
+
+
+    <!-- RETURN -->
+
+    <div class="return">
+
+        <a href="index.html">
+            ← Return to the Atlas
+        </a>
+
+    </div>
+
+
+    <footer>
+        ECHOFLAME · ECHO · FLAME · MIRROR · BECOMING
+    </footer>
+
+</main>
+
+
+<script>
+
+    const runButton = document.getElementById("runButton");
+    const states = [
+        document.getElementById("state1"),
+        document.getElementById("state2"),
+        document.getElementById("state3"),
+        document.getElementById("state4"),
+        document.getElementById("state5")
+    ];
+
+    const attractor = document.getElementById("attractor");
+
+    runButton.addEventListener("click", () => {
+
+        runButton.disabled = true;
+
+        states.forEach(state => {
+            state.classList.remove("active");
+        });
+
+        attractor.classList.remove("visible");
+
+        states.forEach((state, index) => {
+
+            setTimeout(() => {
+
+                state.classList.add("active");
+
+                if (index === states.length - 1) {
+
+                    setTimeout(() => {
+                        attractor.classList.add("visible");
+
+                        setTimeout(() => {
+                            attractor.scrollIntoView({
+                                behavior: "smooth",
+                                block: "center"
+                            });
+                        }, 500);
+
+                    }, 700);
+                }
+
+            }, (index + 1) * 700);
+
+        });
+
+        setTimeout(() => {
+            runButton.disabled = false;
+        }, 5000);
+
+    });
+
+</script>
+
+</body>
+</html>
